@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Layers, Check, ChevronRight, Layout } from 'lucide-react';
+import { Layers, Check, ChevronRight, Layout, Copy, CheckCircle2 } from 'lucide-react';
 import { cn } from './lib/utils';
 
 // Import Themes
@@ -33,6 +33,7 @@ export default function App() {
     return 1;
   });
   const [showPicker, setShowPicker] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleThemeChange = (id: ThemeId) => {
     setActiveTheme(id);
@@ -40,6 +41,12 @@ export default function App() {
     const url = new URL(window.location.href);
     url.searchParams.set('theme', id.toString());
     window.history.pushState({}, '', url);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const renderTheme = () => {
@@ -63,11 +70,24 @@ export default function App() {
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              className="bg-white/90 backdrop-blur-xl border border-gray-200 rounded-3xl shadow-2xl p-6 w-72 mb-2"
+              className="bg-white/90 backdrop-blur-xl border border-gray-200 rounded-3xl shadow-2xl p-6 w-80 mb-2"
             >
-              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
-                <Layout className="w-3 h-3" /> Select Design Proposal
-              </h3>
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                  <Layout className="w-3 h-3" /> Design Proposals
+                </h3>
+                <button 
+                  onClick={copyToClipboard}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all",
+                    copied ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  {copied ? <CheckCircle2 className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                  {copied ? "Link Copied!" : "Copy Link"}
+                </button>
+              </div>
+              
               <div className="space-y-3">
                 {THEMES.map((theme) => (
                   <button
