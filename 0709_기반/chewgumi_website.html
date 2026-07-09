@@ -17,9 +17,9 @@
    · 사진 매칭: 듀잇 드라이브 사진 → 상품 카드 호버 이미지 + NEW ARRIVALS
    · 영상: 트래블잇 드라이브 mp4 → RECOMMENDED (드라이브 미리보기 임베드)
    ========================================================================== */
-:root { --ink:#121314; --gray:#8b929c; --line:#e8e8ec; --bg:#fff; }
+:root { --ink:#1d1d1f; --gray:#86868b; --line:#e8e8ed; --bg:#fff; --alt:#f5f5f7; --blue:#0071e3; }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
-body { font-family:"Montserrat","Noto Sans KR",sans-serif; color:var(--ink); background:var(--bg); font-size:13px; }
+body { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Montserrat","Noto Sans KR",sans-serif; color:var(--ink); background:var(--bg); font-size:14px; letter-spacing:-0.01em; }
 a { color:inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
 button { font-family:inherit; cursor:pointer; background:none; border:0; }
@@ -38,20 +38,37 @@ button { font-family:inherit; cursor:pointer; background:none; border:0; }
 header { position:sticky; top:0; z-index:100; background:transparent; border-bottom:1px solid transparent; transition:background .25s ease, border-color .25s ease, color .25s ease; }
 header:not(.solid) { color:#fff; }
 header:not(.solid) .cart-n { border-color:#fff; }
-header.solid { background:#ffffff; border-bottom-color:var(--line); color:var(--ink); }
+header.solid { background:rgba(251,251,253,.78); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-bottom-color:rgba(0,0,0,.08); color:var(--ink); }
 header.solid .cart-n { border-color:var(--ink); }
-.head-in { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:64px; }
+.head-top { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:58px; }
+.head-top .logo { grid-column:2; }
+.head-top .util { grid-column:3; }
+.head-top .burger { grid-column:1; justify-self:start; }
+/* 제목 아래 하나의 글래스 메뉴 바 */
+.glass-wrap { display:flex; justify-content:center; padding:2px 16px 14px; }
+.glass-bar { display:flex; gap:4px; padding:6px; border-radius:999px;
+  background:rgba(255,255,255,.5); backdrop-filter:blur(22px) saturate(180%); -webkit-backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:0 10px 30px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -8px 16px rgba(255,255,255,.25); }
+header:not(.solid) .glass-bar { background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -8px 16px rgba(255,255,255,.12); }
 .gnb { display:flex; gap:26px; font-size:12px; letter-spacing:1.5px; font-weight:600; }
-.gnb > li { list-style:none; position:relative; padding:24px 0; }
+.gnb > li { list-style:none; position:relative; }
 /* 메뉴 물방울형 표시: 호버 시 글자 아래 방울이 통통 튀며 나타남 */
-.gnb > li > a { position:relative; display:inline-block; padding:8px 16px; border-radius:999px; transition:background .2s ease; }
-.gnb > li:hover > a { background:rgba(120,120,140,.14); }
-header:not(.solid) .gnb > li:hover > a { background:rgba(255,255,255,.22); }
-.gnb > li > a::after { content:""; position:absolute; left:50%; bottom:-4px; width:6px; height:6px;
-  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; background:currentColor;
-  transform:translateX(-50%) scale(0); transition:transform .22s cubic-bezier(.34,1.56,.64,1); }
-.gnb > li:hover > a::after { transform:translateX(-50%) scale(1); }
-.gnb .sub { display:none; position:absolute; top:100%; left:-6px; background:#fff; border:1px solid var(--line); min-width:180px; padding:10px 8px; color:var(--ink); border-radius:18px; box-shadow:0 14px 34px rgba(0,0,0,.10); }
+.gnb > li > a { position:relative; display:inline-block; padding:9px 22px; border-radius:999px; overflow:hidden;
+  transition:background .25s ease, box-shadow .25s ease, transform .25s ease; }
+/* 물방울(리퀴드 글래스) 하이라이트 */
+.gnb > li:hover > a { transform:none;
+  background:rgba(255,255,255,.5); backdrop-filter:blur(14px) saturate(180%); -webkit-backdrop-filter:blur(14px) saturate(180%);
+  box-shadow:0 6px 18px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.85), inset 0 -6px 12px rgba(255,255,255,.25); }
+header:not(.solid) .gnb > li:hover > a { background:rgba(255,255,255,.22);
+  box-shadow:0 6px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.7), inset 0 -6px 12px rgba(255,255,255,.15); }
+/* 물방울 표면 광택 */
+.gnb > li > a::before { content:""; position:absolute; left:12%; top:9%; width:44%; height:34%; border-radius:50%;
+  background:radial-gradient(ellipse at 40% 35%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%);
+  opacity:0; transform:rotate(-14deg); transition:opacity .25s ease; pointer-events:none; }
+.gnb > li:hover > a::before { opacity:.9; }
+.gnb .sub { display:none; position:absolute; top:calc(100% + 10px); left:-6px; background:rgba(255,255,255,.72); backdrop-filter:blur(22px) saturate(180%); -webkit-backdrop-filter:blur(22px) saturate(180%); border:1px solid rgba(255,255,255,.6); min-width:190px; padding:10px 8px; color:var(--ink); border-radius:20px; box-shadow:0 18px 44px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.9); }
 .gnb > li:hover .sub { display:block; }
 .gnb .sub a { display:block; padding:9px 14px; font-weight:400; font-size:12px; border-radius:12px; }
 .gnb .sub a::before { content:"→ "; }
@@ -59,13 +76,12 @@ header:not(.solid) .gnb > li:hover > a { background:rgba(255,255,255,.22); }
 .logo { font-weight:700; font-size:20px; letter-spacing:4px; text-align:center; }
 .util { display:flex; gap:20px; justify-content:flex-end; font-size:11px; letter-spacing:1px; font-weight:500; align-items:center; }
 .cart-n { display:inline-flex; width:18px; height:18px; border:1px solid var(--ink); border-radius:50%; align-items:center; justify-content:center; font-size:10px; margin-left:4px; }
-@media (max-width:900px){ .gnb{display:none} .util a:not(.cart){display:none} }
+@media (max-width:900px){ .glass-wrap{display:none} .util a:not(.cart){display:none} .head-top{height:56px} }
 
 /* ---------- 모바일 전용 디자인 ---------- */
 .burger { display:none; font-size:20px; line-height:1; color:inherit; padding:6px; }
 @media (max-width:900px){
   .burger { display:block; }
-  .head-in { grid-template-columns:auto 1fr auto; height:56px; }
   .logo { font-size:17px; letter-spacing:3px; }
   body { padding-bottom:56px; }              /* 하단 탭바 공간 */
 }
@@ -85,28 +101,29 @@ header:not(.solid) .gnb > li:hover > a { background:rgba(255,255,255,.22); }
 .m-nav a span { display:block; font-size:16px; margin-bottom:2px; }
 
 /* ---------- 히어로 ---------- */
-.hero { position:relative; overflow:hidden; margin-top:-64px; height:100vh; height:100svh; min-height:520px;
+.hero { position:relative; overflow:hidden; margin-top:-118px; height:100vh; height:100svh; min-height:520px;
   background:#121314 url('https://file.cafe24cos.com/banner-admin-live/upload/chewgumi/710cdce6-deb4-4e8c-deb5-968d128a2af4.png') center/cover no-repeat; }
-@media (max-width:900px){ .hero { margin-top:-56px; min-height:420px;
-  background-image:url('https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w1200'); } } /* 모바일 전용 배경 */
+@media (max-width:900px){ .hero { margin-top:-56px !important; min-height:420px;
+  background-image:url('https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w2000'); } } /* 모바일 전용 배경 */
 .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,0) 40%, rgba(0,0,0,.28)); }
 .hero-txt { z-index:2; }
 .hero-txt { position:absolute; left:6%; bottom:10%; color:#fff; text-shadow:0 1px 12px rgba(0,0,0,.25); }
 .hero-txt .en { font-size:clamp(26px,4vw,52px); font-weight:700; letter-spacing:3px; text-transform:uppercase; line-height:1.15; }
 .hero-txt .sub { font-family:"Noto Sans KR"; margin-top:10px; font-size:15px; }
 .hero-btn { display:inline-block; margin-top:22px; border:1px solid #fff; padding:12px 32px; font-size:11px; letter-spacing:2px; border-radius:999px; }
+.hero-btn { background:rgba(255,255,255,.14); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-color:rgba(255,255,255,.7); }
 .hero-btn:hover { background:#fff; color:var(--ink); }
 
 /* ---------- 섹션 공통 ---------- */
 section { padding:80px 0; }
 .sec-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:34px; }
-.sec-title { font-size:15px; font-weight:700; letter-spacing:4px; text-transform:uppercase;
-  filter:blur(10px); transform:scale(1.6); transform-origin:left center; opacity:.25;
+.sec-title { font-size:clamp(28px,3.6vw,44px); font-weight:700; letter-spacing:-0.02em; text-transform:none;
+  filter:blur(10px); transform:scale(1.25); transform-origin:left center; opacity:.25;
   transition:filter .9s ease, transform .9s cubic-bezier(.22,1,.36,1), opacity .9s ease; }
 .sec-title.inview { filter:blur(0); transform:scale(1); opacity:1; }
 @media (prefers-reduced-motion:reduce){ .sec-title { filter:none; transform:none; opacity:1; transition:none; } }
-.sec-more { font-size:11px; letter-spacing:1px; color:var(--gray); }
-.sec-more::after { content:" →"; }
+.sec-more { font-size:14px; color:var(--blue); font-weight:400; }
+.sec-more::after { content:" ›"; }
 
 /* ---------- 상품 카드 (레퍼런스: 호버 이미지 전환) ---------- */
 .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px 20px; }
@@ -170,7 +187,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 .popup-body .p-en { font-size:11px; letter-spacing:3px; color:var(--gray); }
 .popup-body .p-title { font-family:"Noto Sans KR"; font-size:17px; font-weight:700; margin-top:8px; }
 .popup-body .p-desc { font-family:"Noto Sans KR"; font-size:12.5px; color:#666; margin-top:6px; line-height:1.6; }
-.popup-body .p-btn { display:inline-block; margin-top:14px; background:var(--ink); color:#fff; padding:11px 30px; font-size:11px; letter-spacing:2px; border-radius:999px; }
+.popup-body .p-btn { display:inline-block; margin-top:14px; background:var(--ink); color:#fff; padding:11px 30px; font-size:11px; letter-spacing:2px; border-radius:999px; background:var(--blue); }
 .popup-foot { display:flex; border-top:1px solid var(--line); font-family:"Noto Sans KR"; font-size:12px; }
 .popup-foot button { flex:1; padding:12px 0; color:#666; }
 .popup-foot button + button { border-left:1px solid var(--line); font-weight:700; color:var(--ink); }
@@ -195,8 +212,16 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 .detail .d-total { margin-top:14px; font-size:14px; } .detail .d-total b { font-size:18px; }
 .detail .d-acts { margin-top:18px; display:flex; gap:10px; }
 .detail .d-acts a { flex:1; text-align:center; padding:14px 0; border-radius:999px; font-size:12px; letter-spacing:2px; font-family:"Montserrat"; font-weight:600; }
-.detail .d-buy { background:var(--ink); color:#fff; }
+.detail .d-buy { background:var(--blue); color:#fff; }
 .detail .d-cart { border:1px solid var(--ink); }
+/* 클릭 물방울 파동 */
+.ripple { position:fixed; z-index:9999; pointer-events:none; width:240px; height:240px; border-radius:50%;
+  background:radial-gradient(circle at 36% 30%, rgba(255,255,255,.85), rgba(255,255,255,.28) 38%, rgba(140,180,255,.14) 62%, transparent 72%);
+  box-shadow:0 0 60px rgba(255,255,255,.35);
+  transform:translate(-50%,-50%) scale(0); opacity:.9;
+  animation:ripple-wave .75s cubic-bezier(.2,.6,.3,1) forwards; mix-blend-mode:screen; }
+@keyframes ripple-wave { 60% { opacity:.5; } 100% { transform:translate(-50%,-50%) scale(4.2); opacity:0; } }
+@media (prefers-reduced-motion:reduce){ .ripple { display:none; } }
 </style>
 </head>
 <body>
@@ -204,13 +229,13 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 <!-- 레이어 팝업 : 원래 사이트(chewgumi.com)의 회원가입 쿠폰 안내 -->
 <div class="popup-dim" id="popup">
   <div class="popup" role="dialog" aria-label="쿠폰 안내 팝업">
-    <img src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w800" alt="ChewGumi"
-         onerror="this.src='https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png'">
+    <img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w1600" alt="ChewGumi"
+         onerror="this.src='https://chewgumi.com/web/product/big/202511/a613606b1993ee46b245871cef885fa3.png'">
     <div class="popup-body">
       <div class="p-en">WELCOME GIFT</div>
       <div class="p-title" data-en="Get a ₩2,000 coupon when you join!">회원 가입 시 2,000원 할인 쿠폰 제공!</div>
       <div class="p-desc" data-en="Join now and enjoy Travel-it &amp; Do-it for less.">지금 가입하고 트래블잇·듀잇을<br>더 가볍게 만나보세요.</div>
-      <a class="p-btn" href="#">JOIN US</a>
+      <a class="p-btn" href="https://chewgumi.com/member/join.html">JOIN US</a>
     </div>
     <div class="popup-foot">
       <button onclick="closePopup(true)" data-en="Don't show today">오늘 하루 보지 않기</button>
@@ -229,9 +254,17 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 
 <!-- 헤더 -->
 <header>
-  <div class="wrap head-in">
+  <div class="wrap head-top">
     <button class="burger" onclick="toggleDrawer(true)" aria-label="메뉴 열기">☰</button>
-    <ul class="gnb">
+    <a class="logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">CHEWGUMI</a>
+    <div class="util">
+      <a href="https://chewgumi.com/member/login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a>
+      <button id="langBtn" onclick="setLang(cgLang==='ko'?'en':'ko')" style="font-size:11px;letter-spacing:1px;font-weight:600;color:inherit;">EN</button>
+      <a href="https://chewgumi.com/order/basket.html" class="cart">CART<span class="cart-n">0</span></a>
+    </div>
+  </div>
+  <div class="glass-wrap">
+    <ul class="gnb glass-bar">
       <li><a href="#best">SHOP</a>
         <div class="sub">
           <a href="#best" onclick="filterLine('all')">SHOP ALL</a><a href="#best" onclick="filterLine('all')">BESTSELLERS</a><a href="#best" onclick="filterLine('travel')">TRAVEL-IT</a><a href="#best" onclick="filterLine('doit')">DO-IT</a>
@@ -239,16 +272,10 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
       </li>
       <li><a href="#about">ABOUT</a></li>
       <li><a href="#arrivals">ARCHIVE</a></li>
-      <li><a href="#">COMMUNITY</a>
-        <div class="sub"><a href="#">NOTICE</a><a href="#">REVIEW</a><a href="#">Q&amp;A</a></div>
+      <li><a href="https://chewgumi.com/board/free/list.html?board_no=1">COMMUNITY</a>
+        <div class="sub"><a href="https://chewgumi.com/board/free/list.html?board_no=1">NOTICE</a><a href="https://chewgumi.com/board/product/list.html?board_no=4">REVIEW</a><a href="https://chewgumi.com/board/product/list.html?board_no=6">Q&amp;A</a></div>
       </li>
     </ul>
-    <a class="logo" href="#">CHEWGUMI</a>
-    <div class="util">
-      <a href="#">LOGIN</a><a href="#">JOIN US</a><a href="#">ORDER</a>
-      <button id="langBtn" onclick="setLang(cgLang==='ko'?'en':'ko')" style="font-size:11px;letter-spacing:1px;font-weight:600;color:inherit;">EN</button>
-      <a href="#" class="cart">CART<span class="cart-n">0</span></a>
-    </div>
   </div>
 </header>
 
@@ -257,7 +284,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 <aside class="drawer" id="drawer" aria-label="모바일 메뉴">
   <button class="d-close" onclick="toggleDrawer(false)" aria-label="메뉴 닫기">✕</button>
   <div class="d-logo">CHEWGUMI</div>
-  <div class="d-auth"><a href="#">LOGIN</a><a href="#">JOIN US</a><a href="#">ORDER</a></div>
+  <div class="d-auth"><a href="https://chewgumi.com/member/login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a></div>
   <nav>
     <a href="#best" onclick="toggleDrawer(false)">SHOP</a>
     <a class="d-sub" href="#best" onclick="toggleDrawer(false)">SHOP ALL</a>
@@ -266,7 +293,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
     <a class="d-sub" href="#best" onclick="toggleDrawer(false);filterLine('doit')">DO-IT</a>
     <a href="#about" onclick="toggleDrawer(false)">ABOUT</a>
     <a href="#arrivals" onclick="toggleDrawer(false)">ARCHIVE</a>
-    <a href="#" onclick="toggleDrawer(false)">COMMUNITY</a>
+    <a href="https://chewgumi.com/board/free/list.html?board_no=1" onclick="toggleDrawer(false)">COMMUNITY</a>
   </nav>
 </aside>
 
@@ -282,52 +309,52 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 <!-- BEST ITEMS : 실제 상품 + 드라이브 사진 호버 매칭 -->
 <section id="best">
   <div class="wrap">
-    <div class="sec-head"><h2 class="sec-title">Best Items</h2><a class="sec-more" href="#">VIEW ALL</a></div>
+    <div class="sec-head"><h2 class="sec-title">Best Items</h2><a class="sec-more" href="https://chewgumi.com" target="_blank" rel="noopener">VIEW ALL</a></div>
     <div class="grid">
-      <a class="card" href="#" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치로 이동하는 날의 활력을 챙기세요." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. A 40g chewable pouch — no water needed." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치로 이동하는 날의 활력을 챙기세요." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. A 40g chewable pouch — no water needed." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="Travel-it 3봉">
-          <img class="hover" src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="" loading="lazy">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202511/a613606b1993ee46b245871cef885fa3.png" alt="Travel-it 3봉">
+          <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/big/202511/62b0681bd9464871b96fb0be365a828b.png" alt="" loading="lazy">
         </div>
         <div class="name kr" data-en="[3 Packs] ChewGumi Travel Vitamin &amp; Mineral Gummy Travel-it (40g)">[3봉] 츄구미 여행용젤리 비타민 미네랄 구미 젤리 트래블잇 Travel-it (40g)</div>
         <div class="price-row"><span class="p-origin">₩18,000</span><span class="p-sale">₩9,900</span></div>
       </a>
-      <a class="card" href="#" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 5봉 구성으로 긴 여행·출장에 넉넉하게." data-desc-en="A travel energy-booster gummy with 12 nutrients. The 5-pack set is generous for long trips and business travel." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 5봉 구성으로 긴 여행·출장에 넉넉하게." data-desc-en="A travel energy-booster gummy with 12 nutrients. The 5-pack set is generous for long trips and business travel." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="Travel-it 5봉">
-          <img class="hover" src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="" loading="lazy">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202511/62b0681bd9464871b96fb0be365a828b.png" alt="Travel-it 5봉">
+          <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/big/202511/a613606b1993ee46b245871cef885fa3.png" alt="" loading="lazy">
         </div>
         <div class="name kr" data-en="[5 Packs] ChewGumi Travel Vitamin &amp; Mineral Gummy Travel-it (40g)">[5봉] 츄구미 여행용젤리 비타민 미네랄 구미 젤리 트래블잇 Travel-it (40g)</div>
         <div class="price-row"><span class="p-origin">₩30,000</span><span class="p-sale">₩14,900</span></div>
       </a>
-      <a class="card" href="#" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202512/2c58793be7f900d4997e26451366b9cb.png" alt="듀잇 4개입">
-          <img class="hover" src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w800" alt="" loading="lazy" onerror="this.remove()">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202512/2c58793be7f900d4997e26451366b9cb.png" alt="듀잇 4개입">
+          <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
         </div>
         <div class="name kr" data-en="Do-it 4 Pack — Sugar-free Xylitol Candy">듀잇 4개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩39,000</span><span class="p-sale">₩19,900</span></div>
       </a>
-      <a class="card" href="#" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 6개입. 사무실·차량·가방에 하나씩 두고 쓰기 좋은 구성." data-desc-en="6-pack of sugar-free xylitol candy — keep one at your desk, in the car, and in your bag." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 6개입. 사무실·차량·가방에 하나씩 두고 쓰기 좋은 구성." data-desc-en="6-pack of sugar-free xylitol candy — keep one at your desk, in the car, and in your bag." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202512/4f3394ac34364fc0e1f88744141a8c99.png" alt="듀잇 6개입">
-          <img class="hover" src="https://drive.google.com/thumbnail?id=1HHXYW7pzBEtvcHK3TqAy2ddDFvIZE2ro&sz=w800" alt="" loading="lazy" onerror="this.remove()">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202512/4f3394ac34364fc0e1f88744141a8c99.png" alt="듀잇 6개입">
+          <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1HHXYW7pzBEtvcHK3TqAy2ddDFvIZE2ro&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
         </div>
         <div class="name kr" data-en="Do-it 6 Pack — Sugar-free Xylitol Candy">듀잇 6개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩54,800</span><span class="p-sale">₩27,900</span></div>
       </a>
-      <a class="card" href="#" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 10개입. 가족과 함께 쓰는 인기 구성." data-desc-en="10-pack of sugar-free xylitol candy — a favorite for families." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 10개입. 가족과 함께 쓰는 인기 구성." data-desc-en="10-pack of sugar-free xylitol candy — a favorite for families." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202512/f89d6da91dd672a5f25a7a295ebf3be6.png" alt="듀잇 10개입">
-          <img class="hover" src="https://drive.google.com/thumbnail?id=1HA9HW6ucEEj6Yg5c9vVTayjC5RLfYk3V&sz=w800" alt="" loading="lazy" onerror="this.remove()">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202512/f89d6da91dd672a5f25a7a295ebf3be6.png" alt="듀잇 10개입">
+          <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1HA9HW6ucEEj6Yg5c9vVTayjC5RLfYk3V&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
         </div>
         <div class="name kr" data-en="Do-it 10 Pack — Sugar-free Xylitol Candy">듀잇 10개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩84,200</span><span class="p-sale">₩42,900</span></div>
       </a>
-      <a class="card" href="#" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 20개입 대용량. 가장 합리적인 단가로 즐기세요." data-desc-en="Bulk 20-pack of sugar-free xylitol candy — the best value per piece." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디 20개입 대용량. 가장 합리적인 단가로 즐기세요." data-desc-en="Bulk 20-pack of sugar-free xylitol candy — the best value per piece." onclick="openDetail(this);return false;">
         <div class="thumb">
-          <img src="https://chewgumi.com/web/product/medium/202512/942a7d4949aa31bea2c60e76208c1b76.png" alt="듀잇 20개입">
-          <img class="hover" src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w800" alt="" loading="lazy" onerror="this.remove()">
+          <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/big/202512/942a7d4949aa31bea2c60e76208c1b76.png" alt="듀잇 20개입">
+          <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
         </div>
         <div class="name kr" data-en="Do-it 20 Pack — Sugar-free Xylitol Candy">듀잇 20개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩158,900</span><span class="p-sale">₩81,000</span></div>
@@ -338,7 +365,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 
 <!-- 풀 배너 (실제 프로모션 배너, 실패 시 드라이브 라이프스타일 컷) -->
 <div class="full-banner" id="about">
-  <img src="https://file.cafe24cos.com/banner-admin-live/upload/chewgumi/5b12115b-753d-4f70-beca-cbb32a9f71d6.png" alt="DO-IT"
+  <img referrerpolicy="no-referrer" src="https://file.cafe24cos.com/banner-admin-live/upload/chewgumi/5b12115b-753d-4f70-beca-cbb32a9f71d6.png" alt="DO-IT"
        onerror="this.src='https://drive.google.com/thumbnail?id=1_eavDY8eCwTOzm71do0qMtuqzCCxsobd&sz=w1600'">
   <div class="cap">
     <div class="en">DO-IT</div>
@@ -380,18 +407,18 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
   <div class="wrap">
     <div class="sec-head"><h2 class="sec-title">New Arrivals · Do-it Editorial</h2><span class="sec-more kr">드라이브 촬영본</span></div>
     <div class="rail">
-      <figure><img src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w800" alt="듀잇 화보 CGM27816" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1HHXYW7pzBEtvcHK3TqAy2ddDFvIZE2ro&sz=w800" alt="듀잇 화보 CGM27832" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1HA9HW6ucEEj6Yg5c9vVTayjC5RLfYk3V&sz=w800" alt="듀잇 화보 CGM27851" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w800" alt="듀잇 화보 CGM27867" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=10WhdAu3_ZBOqp_RhfGyzIyTSscPojY-N&sz=w800" alt="듀잇 화보 CGM27900" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1PKie62UlpyCHJml6H77GQUE6X2Hmcfmy&sz=w800" alt="듀잇 화보 CGM27920" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1_eavDY8eCwTOzm71do0qMtuqzCCxsobd&sz=w800" alt="듀잇 라이프스타일 cgm1356" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1URFLXmOfPNEpKCL0jXG6nXoIRdQSH-KE&sz=w800" alt="듀잇 라이프스타일 cgm1396" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=17f41iBtW8lFg3RtVebC3k-9Wow_deI8S&sz=w800" alt="듀잇 라이프스타일 cgm1466" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1BjBXa70nzwzGhbmlh-sVgZYLo2oz7f9n&sz=w800" alt="듀잇 라이프스타일 cgm1561" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1TPZOmUaMJIZuzOUn_7UBYSKD1BZmkhEz&sz=w800" alt="듀잇 라이프스타일 cgm1632" loading="lazy" onerror="this.closest('figure').remove()"></figure>
-      <figure><img src="https://drive.google.com/thumbnail?id=1CsD4mWjV9G8Xw40SLjsddcwFH_jvVuyj&sz=w800" alt="듀잇 라이프스타일 cgm1682" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w1600" alt="듀잇 화보 CGM27816" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1HHXYW7pzBEtvcHK3TqAy2ddDFvIZE2ro&sz=w1600" alt="듀잇 화보 CGM27832" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1HA9HW6ucEEj6Yg5c9vVTayjC5RLfYk3V&sz=w1600" alt="듀잇 화보 CGM27851" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w1600" alt="듀잇 화보 CGM27867" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=10WhdAu3_ZBOqp_RhfGyzIyTSscPojY-N&sz=w1600" alt="듀잇 화보 CGM27900" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1PKie62UlpyCHJml6H77GQUE6X2Hmcfmy&sz=w1600" alt="듀잇 화보 CGM27920" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1_eavDY8eCwTOzm71do0qMtuqzCCxsobd&sz=w1600" alt="듀잇 라이프스타일 cgm1356" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1URFLXmOfPNEpKCL0jXG6nXoIRdQSH-KE&sz=w1600" alt="듀잇 라이프스타일 cgm1396" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=17f41iBtW8lFg3RtVebC3k-9Wow_deI8S&sz=w1600" alt="듀잇 라이프스타일 cgm1466" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1BjBXa70nzwzGhbmlh-sVgZYLo2oz7f9n&sz=w1600" alt="듀잇 라이프스타일 cgm1561" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1TPZOmUaMJIZuzOUn_7UBYSKD1BZmkhEz&sz=w1600" alt="듀잇 라이프스타일 cgm1632" loading="lazy" onerror="this.closest('figure').remove()"></figure>
+      <figure><img referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=1CsD4mWjV9G8Xw40SLjsddcwFH_jvVuyj&sz=w1600" alt="듀잇 라이프스타일 cgm1682" loading="lazy" onerror="this.closest('figure').remove()"></figure>
     </div>
   </div>
 </section>
@@ -420,7 +447,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
       </div>
     </div>
     <div class="ft-links">
-      <a href="#">TERMS OF USE</a><a href="#"><strong>PRIVACY POLICY</strong></a><a href="#">GUIDE</a>
+      <a href="https://chewgumi.com/agreement.html">TERMS OF USE</a><a href="https://chewgumi.com/privacy.html"><strong>PRIVACY POLICY</strong></a><a href="https://chewgumi.com/shopinfo/guide.html">GUIDE</a>
     </div>
     <div class="ft-copy">
       <span>Copyright © ChewGumi. All rights reserved.</span>
@@ -431,7 +458,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 <!-- 상품 상세 페이지 레이어 -->
 <div class="detail-dim hide" id="detail" onclick="if(event.target===this)closeDetail()">
   <div class="detail" role="dialog" aria-label="상품 상세">
-    <div class="d-img"><img id="dImg" src="" alt="상품 이미지"></div>
+    <div class="d-img"><img referrerpolicy="no-referrer" id="dImg" src="" alt="상품 이미지"></div>
     <div class="d-info">
       <button class="d-x" onclick="closeDetail()" aria-label="닫기">✕</button>
       <div class="d-line" id="dLine"></div>
@@ -444,7 +471,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
       <div class="d-total"><span data-en="Total">총 상품금액</span> <b id="dTotal"></b></div>
       <div class="d-acts">
         <a class="d-buy" href="https://chewgumi.com" target="_blank" rel="noopener">BUY NOW</a>
-        <a class="d-cart" href="#" onclick="closeDetail();return false;">ADD TO CART</a>
+        <a class="d-cart" href="https://chewgumi.com/order/basket.html" target="_blank" rel="noopener" onclick="closeDetail()">ADD TO CART</a>
       </div>
     </div>
   </div>
@@ -452,10 +479,10 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
 
 <!-- 모바일 하단 탭바 -->
 <nav class="m-nav" aria-label="모바일 하단 메뉴">
-  <a href="#"><span>⌂</span>HOME</a>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><span>⌂</span>HOME</a>
   <a href="#best"><span>◻</span>SHOP</a>
-  <a href="#"><span>♡</span>WISH</a>
-  <a href="#"><span>▣</span>MY</a>
+  <a href="https://chewgumi.com/myshop/wish_list.html"><span>♡</span>WISH</a>
+  <a href="https://chewgumi.com/myshop/index.html"><span>▣</span>MY</a>
 </nav>
 
 <script>
@@ -548,9 +575,37 @@ document.querySelectorAll('video[data-id]').forEach(v => {
   setTimeout(() => { if (v.readyState === 0) fallback(); }, 6000);
 });
 
+/* 이미지 로딩 실패 대비: 상품 사진은 플레이스홀더로, 비어버린 화보 레일은 섹션 숨김 */
+const PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect width="100%" height="100%" fill="#f4f4f6"/><text x="50%" y="50%" text-anchor="middle" font-family="Montserrat,Arial" font-size="18" letter-spacing="4" fill="#c7c7d0">CHEWGUMI</text></svg>');
+document.querySelectorAll('.card .thumb img, .popup img, .lineup-card img').forEach(img => {
+  img.addEventListener('error', () => {
+    if (img.src.includes('/web/product/big/')) { img.src = img.src.replace('/web/product/big/', '/web/product/medium/'); return; }
+    if (img.src !== PLACEHOLDER) img.src = PLACEHOLDER;
+  });
+});
+setTimeout(() => {
+  const rail = document.querySelector('.rail');
+  if (rail && rail.querySelectorAll('figure').length === 0) {
+    const sec = rail.closest('section'); if (sec) sec.style.display = 'none';
+  }
+}, 7000);
+
 const hd = document.querySelector('header');
 const setHead = () => hd.classList.toggle('solid', window.scrollY > 40);
 window.addEventListener('scroll', setHead, { passive:true });
+/* 링크·버튼 클릭 시 화면 전체 물방울 파동 */
+document.addEventListener('click', e => {
+  const t = e.target.closest('a, button');
+  if (!t) return;
+  const r = document.createElement('span');
+  r.className = 'ripple';
+  r.style.left = e.clientX + 'px';
+  r.style.top  = e.clientY + 'px';
+  document.body.appendChild(r);
+  setTimeout(() => r.remove(), 800);
+});
+
 window.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closePopup(false); closeDetail(); toggleDrawer(false); }
 });
