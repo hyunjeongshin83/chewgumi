@@ -272,8 +272,8 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
       </li>
       <li><a href="#about">ABOUT</a></li>
       <li><a href="#arrivals">ARCHIVE</a></li>
-      <li><a href="https://chewgumi.com/board/free/list.html?board_no=1">COMMUNITY</a>
-        <div class="sub"><a href="https://chewgumi.com/board/free/list.html?board_no=1">NOTICE</a><a href="https://chewgumi.com/board/product/list.html?board_no=4">REVIEW</a><a href="https://chewgumi.com/board/product/list.html?board_no=6">Q&amp;A</a></div>
+      <li><a href="#" onclick="openBoard();return false;">COMMUNITY</a>
+        <div class="sub"><a href="#" onclick="openBoard();return false;">NOTICE</a><a href="https://chewgumi.com/board/product/list.html?board_no=4">REVIEW</a><a href="https://chewgumi.com/board/product/list.html?board_no=6">Q&amp;A</a></div>
       </li>
     </ul>
   </div>
@@ -293,7 +293,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
     <a class="d-sub" href="#best" onclick="toggleDrawer(false);filterLine('doit')">DO-IT</a>
     <a href="#about" onclick="toggleDrawer(false)">ABOUT</a>
     <a href="#arrivals" onclick="toggleDrawer(false)">ARCHIVE</a>
-    <a href="https://chewgumi.com/board/free/list.html?board_no=1" onclick="toggleDrawer(false)">COMMUNITY</a>
+    <a href="#" onclick="toggleDrawer(false);openBoard();return false;">COMMUNITY</a>
   </nav>
 </aside>
 
@@ -477,6 +477,42 @@ footer { border-top:1px solid var(--line); padding:56px 0 44px; font-size:11px; 
   </div>
 </div>
 
+<!-- 공지사항 레이어 (글래스 보드) -->
+<div class="board-dim hide" id="board" onclick="if(event.target===this)closeBoard()">
+  <div class="board" role="dialog" aria-label="공지사항">
+    <button class="b-x" onclick="closeBoard()" aria-label="닫기">✕</button>
+    <div class="b-title">Notice</div>
+    <div class="b-sub" data-en="ChewGumi news and announcements">츄구미의 새로운 소식을 알려드립니다</div>
+
+    <div class="notice open">
+      <div class="n-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="n-title"><span class="badge">공지</span>츄구미 자사몰 오픈 안내</span><span class="n-date">2026.07.01</span>
+      </div>
+      <div class="n-body">안녕하세요, 츄구미입니다. 공식 자사몰이 오픈했습니다. 오픈 기념으로 전 상품 할인 판매 중이며, 회원 가입 시 2,000원 할인 쿠폰을 드립니다.</div>
+    </div>
+    <div class="notice">
+      <div class="n-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="n-title"><span class="badge">배송</span>배송 안내 (평일 오후 2시 이전 주문 시 당일 출고)</span><span class="n-date">2026.06.20</span>
+      </div>
+      <div class="n-body">평일 오후 2시 이전 결제 완료 건은 당일 출고됩니다. 주말·공휴일 주문은 다음 영업일에 순차 출고되며, 출고 후 1~2일 내 수령하실 수 있습니다.</div>
+    </div>
+    <div class="notice">
+      <div class="n-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="n-title">듀잇(Do-it) 신제품 2종 출시 — 레몬민트 · 그레이프</span><span class="n-date">2026.06.02</span>
+      </div>
+      <div class="n-body">핀란드산 자일리톨 93% 함유 무설탕 캔디 듀잇이 레몬민트, 그레이프 2가지 맛으로 출시되었습니다. 4·6·10·20개입 구성으로 만나보세요.</div>
+    </div>
+    <div class="notice">
+      <div class="n-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="n-title">교환·반품 안내</span><span class="n-date">2026.05.15</span>
+      </div>
+      <div class="n-body">식품 특성상 단순 변심에 의한 교환·반품은 미개봉 상태에 한해 수령 후 7일 이내 가능합니다. 상품 하자·오배송은 배송비 없이 처리해 드립니다. 고객센터 010-5702-2430으로 연락해 주세요.</div>
+    </div>
+
+    <a class="b-link" href="https://chewgumi.com/board/free/list.html?board_no=1" target="_blank" rel="noopener" data-en="Open the official board">공식 게시판에서 전체 보기</a>
+  </div>
+</div>
+
 <!-- 모바일 하단 탭바 -->
 <nav class="m-nav" aria-label="모바일 하단 메뉴">
   <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><span>⌂</span>HOME</a>
@@ -594,6 +630,10 @@ setTimeout(() => {
 const hd = document.querySelector('header');
 const setHead = () => hd.classList.toggle('solid', window.scrollY > 40);
 window.addEventListener('scroll', setHead, { passive:true });
+/* 공지사항 레이어 */
+function openBoard(){ document.getElementById('board').classList.remove('hide'); document.body.style.overflow='hidden'; }
+function closeBoard(){ document.getElementById('board').classList.add('hide'); document.body.style.overflow=''; }
+
 /* 링크·버튼 클릭 시 화면 전체 물방울 파동 */
 document.addEventListener('click', e => {
   const t = e.target.closest('a, button');
@@ -607,7 +647,7 @@ document.addEventListener('click', e => {
 });
 
 window.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closePopup(false); closeDetail(); toggleDrawer(false); }
+  if (e.key === 'Escape') { closePopup(false); closeDetail(); toggleDrawer(false); closeBoard(); }
 });
 setHead();
 </script>
