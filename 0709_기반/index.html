@@ -21,6 +21,7 @@
    ========================================================================== */
 :root { --ink:#1d1d1f; --gray:#86868b; --line:#e8e8ed; --bg:#fff; --alt:#f5f5f7; --blue:#0071e3; }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+html { scroll-behavior:smooth; }
 body { font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","Noto Sans KR",sans-serif; color:var(--ink); background:var(--bg); font-size:14px; letter-spacing:-0.01em; }
 a { color:inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
@@ -115,19 +116,25 @@ header:not(.solid) .gnb > li:hover > a { background:rgba(255,255,255,.22);
 .drawer nav a:hover { background:rgba(255,255,255,.55); }
 .drawer nav a.d-sub { padding-left:14px; font-weight:400; letter-spacing:1px; }
 .drawer nav a.d-sub::before { content:"→ "; color:var(--gray); }
-.m-nav { display:none; position:fixed; left:0; right:0; bottom:0; z-index:150; background:#fff; border-top:1px solid var(--line); }
+.m-nav { display:none; position:fixed; left:0; right:0; bottom:0; z-index:150;
+  background:rgba(255,255,255,.68); backdrop-filter:blur(22px) saturate(120%); -webkit-backdrop-filter:blur(22px) saturate(120%);
+  border-top:1px solid rgba(255,255,255,.7);
+  box-shadow:0 -8px 24px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.85); }
 @media (max-width:900px){ .m-nav { display:grid; grid-template-columns:repeat(4,1fr); } }
-.m-nav a { text-align:center; padding:10px 0 9px; font-size:10px; letter-spacing:1px; font-weight:600; color:var(--ink); }
+.m-nav a { text-align:center; padding:10px 6px 9px; margin:5px 4px; border-radius:14px; font-size:10px; letter-spacing:1px; font-weight:600; color:var(--ink); transition:background .2s ease; }
+.m-nav a:active, .m-nav a:hover { background:rgba(255,255,255,.75); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
 .m-nav a span { display:block; font-size:16px; margin-bottom:2px; }
 
 /* ---------- 히어로 ---------- */
-.hero { position:relative; overflow:hidden; margin-top:-118px; height:54vh; min-height:380px;
-  background:#121314 url('https://file.cafe24cos.com/banner-admin-live/upload/chewgumi/710cdce6-deb4-4e8c-deb5-968d128a2af4.png') center/cover no-repeat; }
-@media (max-width:900px){ .hero { margin-top:-56px; height:46vh; min-height:300px; } }
+.hero { position:relative; overflow:hidden; max-width:1360px; margin:18px auto 0; width:calc(100% - 40px);
+  border-radius:28px; aspect-ratio:21/8; max-height:430px; min-height:280px;
+  background:#121314 url('https://file.cafe24cos.com/banner-admin-live/upload/chewgumi/710cdce6-deb4-4e8c-deb5-968d128a2af4.png') center/cover no-repeat;
+  box-shadow:0 18px 48px rgba(0,0,0,.14); }
+@media (max-width:900px){ .hero { width:calc(100% - 28px); margin:12px auto 0; aspect-ratio:4/3; min-height:0; max-height:none; border-radius:22px; } }
 .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,0) 40%, rgba(0,0,0,.28)); }
 .hero-txt { z-index:2; }
 .hero-txt { position:absolute; left:6%; bottom:10%; color:#fff; text-shadow:0 1px 12px rgba(0,0,0,.25); }
-.hero-txt .en { font-size:clamp(26px,4vw,52px); font-weight:700; letter-spacing:3px; text-transform:uppercase; line-height:1.15; }
+.hero-txt .en { font-size:clamp(22px,3.2vw,40px); font-weight:700; letter-spacing:3px; text-transform:uppercase; line-height:1.15; }
 .hero-txt .sub { font-family:"Pretendard Variable",Pretendard,"Noto Sans KR"; margin-top:10px; font-size:15px; }
 .hero-btn { display:inline-block; margin-top:22px; border:1px solid #fff; padding:12px 32px; font-size:11px; letter-spacing:2px; border-radius:999px; }
 .hero-btn { background:rgba(255,255,255,.14); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-color:rgba(255,255,255,.7); }
@@ -281,8 +288,23 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
 .detail .d-total { margin-top:14px; font-size:14px; } .detail .d-total b { font-size:18px; }
 .detail .d-acts { margin-top:18px; display:flex; gap:10px; }
 .detail .d-acts a { flex:1; text-align:center; padding:14px 0; border-radius:999px; font-size:12px; letter-spacing:2px; font-family:"Montserrat"; font-weight:600; }
-.detail .d-buy { background:var(--blue); color:#fff; }
-.detail .d-cart { border:1px solid var(--ink); }
+.detail .d-notice { margin-top:16px; padding:12px 14px; border-radius:14px; font-size:11.5px; line-height:1.7; color:#666;
+  background:rgba(255,255,255,.45); border:1px solid rgba(255,255,255,.65); box-shadow:inset 0 1px 0 rgba(255,255,255,.8); }
+.detail .d-notice b { color:var(--ink); }
+.detail .d-buy { color:#fff; position:relative; overflow:hidden;
+  background:linear-gradient(155deg, rgba(0,113,227,.9), rgba(0,90,190,.94));
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 8px 22px rgba(0,113,227,.35), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -6px 12px rgba(255,255,255,.12);
+  transition:transform .2s ease, box-shadow .2s ease; }
+.detail .d-buy::before { content:""; position:absolute; left:10%; top:8%; width:44%; height:38%; border-radius:50%;
+  background:radial-gradient(ellipse at 40% 35%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%); transform:rotate(-14deg); pointer-events:none; }
+.detail .d-buy:hover { transform:translateY(-1px); box-shadow:0 12px 28px rgba(0,113,227,.45), inset 0 1px 0 rgba(255,255,255,.6); }
+.detail .d-cart { color:var(--ink);
+  background:rgba(255,255,255,.6); backdrop-filter:blur(12px) saturate(120%); -webkit-backdrop-filter:blur(12px) saturate(120%);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 16px rgba(0,0,0,.07);
+  transition:transform .2s ease, box-shadow .2s ease; }
+.detail .d-cart:hover { transform:translateY(-1px); box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 10px 22px rgba(0,0,0,.11); }
 /* ---------- Community 요약 카드 (물방울 글래스) ---------- */
 .comm-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 @media (max-width:900px){ .comm-grid { grid-template-columns:1fr; } }
@@ -339,6 +361,43 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
   background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.8); box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 16px rgba(0,0,0,.06); }
 .bl-foot::after { content:" ›"; }
 
+/* ---------- 글래스 장바구니 ---------- */
+.cart-dim { position:fixed; inset:0; background:rgba(0,0,0,.3); backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); z-index:295; opacity:0; pointer-events:none; transition:opacity .25s; }
+.cart-dim.open { opacity:1; pointer-events:auto; }
+.cartp { position:fixed; top:0; bottom:0; right:0; width:min(92vw,390px); z-index:296; display:flex; flex-direction:column;
+  background:rgba(255,255,255,.74); backdrop-filter:blur(30px) saturate(120%); -webkit-backdrop-filter:blur(30px) saturate(120%);
+  border-left:1px solid rgba(255,255,255,.7);
+  box-shadow:-14px 0 44px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.9);
+  transform:translateX(100%); transition:transform .3s ease; padding:26px 24px 22px; }
+.cartp.open { transform:translateX(0); }
+.cartp h2 { font-family:'Jua',sans-serif; font-weight:400; font-size:24px; }
+.cartp .c-x { position:absolute; top:18px; right:18px; font-size:18px; }
+.c-list { flex:1; overflow-y:auto; margin-top:14px; }
+.c-empty { text-align:center; color:var(--gray); font-size:13px; padding:60px 0; }
+.c-item { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid rgba(0,0,0,.06); }
+.c-item img { width:58px; height:58px; object-fit:cover; border-radius:14px; background:#f4f4f6; }
+.c-info { flex:1; min-width:0; }
+.c-name { font-size:12.5px; font-weight:600; line-height:1.4; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.c-price { font-size:12px; color:var(--gray); margin-top:3px; }
+.c-qty { display:flex; align-items:center; border:1px solid rgba(255,255,255,.9); border-radius:999px; overflow:hidden;
+  background:rgba(255,255,255,.6); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+.c-qty button { width:26px; height:26px; font-size:13px; }
+.c-qty span { min-width:24px; text-align:center; font-size:12px; font-weight:700; }
+.c-del { font-size:14px; color:var(--gray); padding:4px; }
+.c-del:hover { color:#C2185B; }
+.c-foot { border-top:1px solid rgba(0,0,0,.08); padding-top:14px; }
+.c-total { display:flex; justify-content:space-between; font-size:14px; font-weight:600; }
+.c-total b { font-size:19px; }
+.c-note { margin-top:8px; font-size:10.5px; color:#8a8a92; line-height:1.6; }
+.c-checkout { display:block; text-align:center; margin-top:12px; padding:14px 0; border-radius:999px; font-size:12px; letter-spacing:2px; font-weight:700; color:#fff;
+  position:relative; overflow:hidden;
+  background:linear-gradient(155deg, rgba(0,113,227,.9), rgba(0,90,190,.94));
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 10px 24px rgba(0,113,227,.35), inset 0 1px 0 rgba(255,255,255,.55); transition:transform .2s ease; }
+.c-checkout:hover { transform:translateY(-1px); }
+.c-continue { display:block; text-align:center; margin-top:8px; padding:12px 0; border-radius:999px; font-size:11px; letter-spacing:1.5px; font-weight:600; color:var(--ink);
+  background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.85); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+
 /* 클릭 물방울 파동 */
 .ripple { position:fixed; z-index:9999; pointer-events:none; width:240px; height:240px; border-radius:50%;
   background:radial-gradient(circle at 36% 30%, rgba(255,255,255,.85), rgba(255,255,255,.28) 38%, rgba(140,180,255,.14) 62%, transparent 72%);
@@ -392,18 +451,18 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
 <header>
   <div class="wrap head-top">
     <button class="burger" onclick="toggleDrawer(true)" aria-label="메뉴 열기">☰</button>
-    <a class="logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><img src="https://drive.google.com/thumbnail?id=1rao5MDlvf0MnVSSvGMY9cMlS7ox4vur8&sz=w400" alt="ChewGumi" referrerpolicy="no-referrer" onerror="this.outerHTML='CHEWGUMI'"></a>
+    <a class="logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><img src="logo.png" alt="ChewGumi" onerror="this.outerHTML='CHEWGUMI'"></a>
     <div class="util">
-      <a href="https://chewgumi.com/member/login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a>
+      <a href="login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a>
       <button id="langBtn" onclick="setLang(cgLang==='ko'?'en':'ko')" style="font-size:11px;letter-spacing:1px;font-weight:600;color:inherit;">EN</button>
-      <a href="https://chewgumi.com/order/basket.html" class="cart">CART<span class="cart-n">0</span></a>
+      <a href="#" class="cart" onclick="openCart();return false;">CART<span class="cart-n" id="cartN">0</span></a>
     </div>
   </div>
   <div class="glass-wrap">
     <ul class="gnb glass-bar">
       <li><a href="#best">SHOP</a>
         <div class="sub">
-          <a href="#best" onclick="filterLine('all')">SHOP ALL</a><a href="#best" onclick="filterLine('all')">BESTSELLERS</a><a href="#all" onclick="filterLine('travel')">TRAVEL-IT</a><a href="#all" onclick="filterLine('doit')">DO-IT</a>
+          <a href="#all" onclick="filterLine('all')">SHOP ALL</a><a href="#best">BESTSELLERS</a><a href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" target="_blank" rel="noopener">TRAVEL-IT</a><a href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" target="_blank" rel="noopener">DO-IT</a>
         </div>
       </li>
       <li><a href="#about">ABOUT</a></li>
@@ -420,13 +479,13 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
 <aside class="drawer" id="drawer" aria-label="모바일 메뉴">
   <button class="d-close" onclick="toggleDrawer(false)" aria-label="메뉴 닫기">✕</button>
   <div class="d-logo">CHEWGUMI</div>
-  <div class="d-auth"><a href="https://chewgumi.com/member/login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a></div>
+  <div class="d-auth"><a href="login.html">LOGIN</a><a href="https://chewgumi.com/member/join.html">JOIN US</a><a href="https://chewgumi.com/myshop/order/list.html">ORDER</a></div>
   <nav>
     <a href="#best" onclick="toggleDrawer(false)">SHOP</a>
     <a class="d-sub" href="#best" onclick="toggleDrawer(false)">SHOP ALL</a>
     <a class="d-sub" href="#best" onclick="toggleDrawer(false)">BESTSELLERS</a>
-    <a class="d-sub" href="#all" onclick="toggleDrawer(false);filterLine('travel')">TRAVEL-IT</a>
-    <a class="d-sub" href="#all" onclick="toggleDrawer(false);filterLine('doit')">DO-IT</a>
+    <a class="d-sub" href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" target="_blank" rel="noopener" onclick="toggleDrawer(false)">TRAVEL-IT</a>
+    <a class="d-sub" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" target="_blank" rel="noopener" onclick="toggleDrawer(false)">DO-IT</a>
     <a href="#about" onclick="toggleDrawer(false)">ABOUT</a>
     <a href="#arrivals" onclick="toggleDrawer(false)">ARCHIVE</a>
     <a href="notice.html" onclick="toggleDrawer(false);openBoardLayer('notice');return false;">COMMUNITY</a>
@@ -447,7 +506,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
   <div class="wrap">
     <div class="sec-head"><h2 class="sec-title">Best Items</h2><a class="sec-more" href="#all">전체 제품</a></div>
     <div class="grid">
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
         <div class="thumb"><span class="prd-badge" style="position:absolute;top:10px;left:10px;background:var(--ink);color:#fff;font-size:11px;padding:4px 9px;letter-spacing:1px;border-radius:999px;z-index:2;">BEST</span>
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="[3봉] 츄구미 여행용젤리 비타민 미네랄 구미 젤리 트래블잇 Travel-it (40g)">
           <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="" loading="lazy">
@@ -455,7 +514,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="[3 Packs] ChewGumi Travel Vitamin &amp; Mineral Gummy Travel-it (40g)">[3봉] 츄구미 여행용젤리 비타민 미네랄 구미 젤리 트래블잇 Travel-it (40g)</div>
         <div class="price-row"><span class="p-origin">₩18,000</span><span class="p-sale">₩9,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/942a7d4949aa31bea2c60e76208c1b76.png" alt="듀잇 20개입 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -463,7 +522,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="Do-it 20 Pack — Sugar-free Xylitol Candy">듀잇 20개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩158,900</span><span class="p-sale">₩81,000</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="[5봉] 츄구미 여행용젤리 비타민 미네랄 구미 젤리 트래블잇 Travel-it (40g)">
           <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="" loading="lazy">
@@ -478,9 +537,9 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
 <!-- ALL PRODUCTS -->
 <section id="all" style="background:var(--alt);">
   <div class="wrap">
-    <div class="sec-head"><h2 class="sec-title">All Products</h2><a class="sec-more" href="https://chewgumi.com" target="_blank" rel="noopener">VIEW ALL</a></div>
+    <div class="sec-head"><h2 class="sec-title">All Products</h2><a class="sec-more" href="https://chewgumi.com" target="_blank" rel="noopener" data-en="ALL 11 PRODUCTS">전체 11개 상품</a></div>
     <div class="grid">
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="[3봉] 트래블잇 Travel-it (40g)">
           <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="" loading="lazy">
@@ -488,7 +547,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="[3 Packs] Travel-it (40g)">[3봉] 트래블잇 Travel-it (40g)</div>
         <div class="price-row"><span class="p-origin">₩18,000</span><span class="p-sale">₩9,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/" data-line="travel" data-desc="비타민 A·B·C·E, 마그네슘, 테아닌 등 12가지 영양소를 담은 여행용 에너지 부스터 젤리. 물 없이 씹는 40g 파우치." data-desc-en="A travel energy-booster gummy with 12 nutrients including vitamins A, B, C, E, magnesium and theanine. 40g chewable pouch." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202511/62b0681bd9464871b96fb0be365a828b.png" alt="[5봉] 트래블잇 Travel-it (40g)">
           <img referrerpolicy="no-referrer" class="hover" src="https://chewgumi.com/web/product/medium/202511/a613606b1993ee46b245871cef885fa3.png" alt="" loading="lazy">
@@ -496,7 +555,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="[5 Packs] Travel-it (40g)">[5봉] 트래블잇 Travel-it (40g)</div>
         <div class="price-row"><span class="p-origin">₩30,000</span><span class="p-sale">₩14,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/2c58793be7f900d4997e26451366b9cb.png" alt="듀잇 4개입 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1SIVMBOw9NsmjmvcBN6C8IVIz-IXLcd3L&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -504,7 +563,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="Do-it 4 Pack">듀잇 4개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩39,000</span><span class="p-sale">₩19,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/4f3394ac34364fc0e1f88744141a8c99.png" alt="듀잇 6개입 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1HHXYW7pzBEtvcHK3TqAy2ddDFvIZE2ro&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -512,7 +571,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="Do-it 6 Pack">듀잇 6개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩54,800</span><span class="p-sale">₩27,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/f89d6da91dd672a5f25a7a295ebf3be6.png" alt="듀잇 10개입 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1HA9HW6ucEEj6Yg5c9vVTayjC5RLfYk3V&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -520,7 +579,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="Do-it 10 Pack">듀잇 10개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩84,200</span><span class="p-sale">₩42,900</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/942a7d4949aa31bea2c60e76208c1b76.png" alt="듀잇 20개입 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=1oESIPTz_Ee_yfREfkoI6I5_kkJa4Ueq0&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -528,7 +587,7 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
         <div class="name kr" data-en="Do-it 20 Pack">듀잇 20개입 — 무설탕 자일리톨 캔디</div>
         <div class="price-row"><span class="p-origin">₩158,900</span><span class="p-sale">₩81,000</span></div>
       </a>
-      <a class="card" href="https://chewgumi.com/product/search.html?keyword=%EB%93%80%EC%9E%87" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
+      <a class="card" href="https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/" data-line="doit" data-desc="핀란드산 자일리톨 93% 함유 무설탕 캔디. 입 마름과 구취가 신경 쓰이는 순간, 당 걱정 없이 개운하게." data-desc-en="Sugar-free candy with 93% Finnish xylitol. Freshens dry mouth and breath — without the sugar." onclick="openDetail(this);return false;">
         <div class="thumb">
           <img referrerpolicy="no-referrer" src="https://chewgumi.com/web/product/medium/202512/55a36711d9dc4b14c9ee46972c6afc3c.png" alt="듀잇 그레이프 — 무설탕 자일리톨 캔디">
           <img referrerpolicy="no-referrer" class="hover" src="https://drive.google.com/thumbnail?id=10WhdAu3_ZBOqp_RhfGyzIyTSscPojY-N&sz=w1600" alt="" loading="lazy" onerror="this.remove()">
@@ -662,8 +721,11 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
       </div>
       <div class="d-total"><span data-en="Total">총 상품금액</span> <b id="dTotal"></b></div>
       <div class="d-acts">
-        <a class="d-buy" href="https://chewgumi.com" target="_blank" rel="noopener">BUY NOW</a>
-        <a class="d-cart" href="https://chewgumi.com/order/basket.html" target="_blank" rel="noopener" onclick="closeDetail()">ADD TO CART</a>
+        <a class="d-buy" id="dBuy" href="https://chewgumi.com" target="_blank" rel="noopener" title="공식몰에서 구매가 진행됩니다">BUY NOW</a>
+        <a class="d-cart" href="#" onclick="addToCart();return false;">ADD TO CART</a>
+      </div>
+      <div class="d-notice" data-en="<b>Shipping</b> Same-day dispatch for orders before 2PM (weekdays) · <b>Returns</b> Unopened, within 7 days · Options and payment are completed on the official store.">
+        <b>배송</b> 평일 14시 이전 주문 당일 출고 · <b>교환/반품</b> 미개봉 7일 이내 · 옵션 선택과 결제는 공식몰에서 안전하게 진행됩니다.
       </div>
     </div>
   </div>
@@ -684,6 +746,21 @@ footer { background:linear-gradient(180deg, var(--alt), #ECECF1); padding:56px 0
     <a class="bl-foot" id="blMore" href="notice.html">FULL PAGE</a>
   </div>
 </div>
+
+<!-- 글래스 장바구니 -->
+<div class="cart-dim" id="cartDim" onclick="closeCart()"></div>
+<aside class="cartp" id="cartP" aria-label="장바구니">
+  <button class="c-x" onclick="closeCart()" aria-label="닫기">✕</button>
+  <h2>Cart</h2>
+  <div class="c-list" id="cList"><div class="c-empty">장바구니가 비어 있습니다</div></div>
+  <div class="c-foot">
+    <div class="c-total"><span>총 상품금액</span><b id="cTotal">₩0</b></div>
+    <div class="c-note">버튼을 누르면 공식몰의 해당 상품 페이지가 열립니다. 공식몰에서 상품을 담고 결제(토스·카카오페이·카드·계좌이체 등)를 완료해 주세요.</div>
+    <a class="c-checkout" id="cCheckout" href="https://chewgumi.com" target="_blank" rel="noopener">공식몰에서 결제하기</a>
+    <a class="c-continue" href="https://chewgumi.com/order/basket.html" target="_blank" rel="noopener" style="margin-top:8px;">공식몰 장바구니 확인</a>
+    <button class="c-continue" onclick="closeCart()">계속 쇼핑하기</button>
+  </div>
+</aside>
 
 <!-- 모바일 하단 탭바 -->
 <nav class="m-nav" aria-label="모바일 하단 메뉴">
@@ -722,6 +799,7 @@ function openDetail(card){
   const sale = card.querySelector('.p-sale').textContent;
   document.getElementById('dSale').textContent = sale;
   window._curCard = card;
+  document.getElementById('dBuy').href = card.dataset.line === 'travel' ? 'https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/' : 'https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/';
   document.getElementById('dDesc').textContent = (cgLang === 'en' && card.dataset.descEn) ? card.dataset.descEn : card.dataset.desc;
   dPrice = Number(sale.replace(/[^0-9]/g,'')); dQty = 1; renderQty();
   document.getElementById('detail').classList.remove('hide');
@@ -791,7 +869,7 @@ setTimeout(() => {
 }, 7000);
 
 const hd = document.querySelector('header');
-const setHead = () => hd.classList.toggle('solid', window.scrollY > 40);
+const setHead = () => hd.classList.add('solid');
 window.addEventListener('scroll', setHead, { passive:true });
 /* 대형 게시판 레이어: 게시판 소스 내장 */
 const BOARDS = {
@@ -858,6 +936,41 @@ document.querySelectorAll('.comm-list[data-key]').forEach(ul => {
     `<li><span class="t">${i.t}</span><span class="d">${i.m.replace('2026.','')}</span></li>`).join('');
 });
 
+/* 글래스 장바구니 */
+const CART = [];
+function openCart(){ renderCart(); document.getElementById('cartP').classList.add('open'); document.getElementById('cartDim').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart(){ document.getElementById('cartP').classList.remove('open'); document.getElementById('cartDim').classList.remove('open'); document.body.style.overflow=''; }
+function addToCart(){
+  if (!window._curCard) return;
+  const card = window._curCard;
+  const name = card.querySelector('.name').textContent.trim();
+  const found = CART.find(i => i.name === name);
+  if (found) found.qty += dQty;
+  else CART.push({ name, price: dPrice, qty: dQty, img: card.querySelector('.thumb img').src });
+  closeDetail(); openCart();
+}
+function cartQty(i, d){ CART[i].qty = Math.max(1, CART[i].qty + d); renderCart(); }
+function cartDel(i){ CART.splice(i,1); renderCart(); }
+function renderCart(){
+  const list = document.getElementById('cList');
+  const n = CART.reduce((a,i)=>a+i.qty,0);
+  document.getElementById('cartN').textContent = n;
+  if (!CART.length) { list.innerHTML = '<div class="c-empty">장바구니가 비어 있습니다</div>'; document.getElementById('cTotal').textContent = '₩0'; return; }
+  list.innerHTML = CART.map((it,i) => `
+    <div class="c-item">
+      <img src="${it.img}" alt="">
+      <div class="c-info">
+        <div class="c-name">${it.name}</div>
+        <div class="c-price">${won(it.price)} · 소계 ${won(it.price*it.qty)}</div>
+      </div>
+      <div class="c-qty"><button onclick="cartQty(${i},-1)">−</button><span>${it.qty}</span><button onclick="cartQty(${i},1)">＋</button></div>
+      <button class="c-del" onclick="cartDel(${i})" aria-label="삭제">✕</button>
+    </div>`).join('');
+  document.getElementById('cTotal').textContent = won(CART.reduce((a,i)=>a+i.price*i.qty,0));
+  const lines = new Set(CART.map(i => i.name.includes('트래블잇') || i.name.toLowerCase().includes('travel') ? 't' : 'd'));
+  document.getElementById('cCheckout').href = lines.size === 1 ? (lines.has('t') ? 'https://chewgumi.com/category/%ED%8A%B8%EB%9E%98%EB%B8%94%EC%9E%87/42/' : 'https://chewgumi.com/category/%EB%93%80%EC%9E%87/47/') : 'https://chewgumi.com';
+}
+
 /* 링크·버튼 클릭 시 화면 전체 물방울 파동 */
 document.addEventListener('click', e => {
   const t = e.target.closest('a, button');
@@ -871,7 +984,7 @@ document.addEventListener('click', e => {
 });
 
 window.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closePopup(false); closeDetail(); toggleDrawer(false); closeBoardLayer(); }
+  if (e.key === 'Escape') { closePopup(false); closeDetail(); toggleDrawer(false); closeCart(); closeBoardLayer(); }
 });
 setHead();
 </script>
